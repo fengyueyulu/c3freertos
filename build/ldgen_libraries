@@ -1,4 +1,4 @@
-D:/esppro/led/hello_world/build/esp-idf/xtensa/libxtensa.a
+D:/esppro/led/hello_world/build/esp-idf/riscv/libriscv.a
 D:/esppro/led/hello_world/build/esp-idf/esp_ringbuf/libesp_ringbuf.a
 D:/esppro/led/hello_world/build/esp-idf/efuse/libefuse.a
 D:/esppro/led/hello_world/build/esp-idf/driver/libdriver.a
@@ -54,8 +54,6 @@ D:/esppro/led/hello_world/build/esp-idf/sdmmc/libsdmmc.a
 D:/esppro/led/hello_world/build/esp-idf/fatfs/libfatfs.a
 D:/esppro/led/hello_world/build/esp-idf/json/libjson.a
 D:/esppro/led/hello_world/build/esp-idf/mqtt/libmqtt.a
-D:/esppro/led/hello_world/build/esp-idf/perfmon/libperfmon.a
 D:/esppro/led/hello_world/build/esp-idf/spiffs/libspiffs.a
-D:/esppro/led/hello_world/build/esp-idf/ulp/libulp.a
 D:/esppro/led/hello_world/build/esp-idf/wifi_provisioning/libwifi_provisioning.a
 D:/esppro/led/hello_world/build/esp-idf/main/libmain.a
