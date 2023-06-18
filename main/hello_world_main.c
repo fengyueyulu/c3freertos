@@ -11,6 +11,8 @@
 #include "freertos/task.h"
 #include "esp_chip_info.h"
 #include "esp_flash.h"
+#include "driver/gpio.h"
+
 
 void app_main(void)
 {
