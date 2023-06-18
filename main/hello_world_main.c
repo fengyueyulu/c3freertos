@@ -1,7 +1,7 @@
 /*
- * SPDX-FileCopyrightText: 2010-2022 Espressif Systems (Shanghai) CO LTD
- *
- * SPDX-License-Identifier: CC0-1.0
+ *user：xhy
+ *version：1.0
+ *function：led
  */
 
 #include <stdio.h>
@@ -13,39 +13,30 @@
 #include "esp_flash.h"
 #include "driver/gpio.h"
 
+#define LED_PI_L 12
+
+void light_init(void)
+{
+    gpio_reset_pin(LED_PI_L);
+    /* Set the GPIO as a push/pull output */
+    gpio_set_direction(LED_PI_L, GPIO_MODE_OUTPUT);
+    
+}
+void light_task(void)
+{
+    light_init();
+    while (1)
+    {
+        gpio_set_level(LED_PI_L,0);
+        vTaskDelay(pdMS_TO_TICKS(200));
+        gpio_set_level(LED_PI_L,1);
+        vTaskDelay(pdMS_TO_TICKS(200));
+    }
+    
+}
 
 void app_main(void)
 {
+    xTaskCreate(light_task,"light_task",1024*2,0,NULL,0);
     printf("Hello world!\n");
-
-    /* Print chip information */
-    esp_chip_info_t chip_info;
-    uint32_t flash_size;
-    esp_chip_info(&chip_info);
-    printf("This is %s chip with %d CPU core(s), WiFi%s%s, ",
-           CONFIG_IDF_TARGET,
-           chip_info.cores,
-           (chip_info.features & CHIP_FEATURE_BT) ? "/BT" : "",
-           (chip_info.features & CHIP_FEATURE_BLE) ? "/BLE" : "");
-
-    unsigned major_rev = chip_info.revision / 100;
-    unsigned minor_rev = chip_info.revision % 100;
-    printf("silicon revision v%d.%d, ", major_rev, minor_rev);
-    if(esp_flash_get_size(NULL, &flash_size) != ESP_OK) {
-        printf("Get flash size failed");
-        return;
-    }
-
-    printf("%" PRIu32 "MB %s flash\n", flash_size / (uint32_t)(1024 * 1024),
-           (chip_info.features & CHIP_FEATURE_EMB_FLASH) ? "embedded" : "external");
-
-    printf("Minimum free heap size: %" PRIu32 " bytes\n", esp_get_minimum_free_heap_size());
-
-    for (int i = 10; i >= 0; i--) {
-        printf("Restarting in %d seconds...\n", i);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-    }
-    printf("Restarting now.\n");
-    fflush(stdout);
-    esp_restart();
 }
