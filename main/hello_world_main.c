@@ -1,6 +1,6 @@
 /*
  *user：xhy
- *version：1.0
+ *version：1.1
  *function：led
  */
 
@@ -14,23 +14,34 @@
 #include "driver/gpio.h"
 
 #define LED_PI_L 12
+#define LED_PI_R 13
 
 void light_init(void)
 {
-    gpio_reset_pin(LED_PI_L);
+    gpio_reset_pin(LED_PI_L|LED_PI_R);
     /* Set the GPIO as a push/pull output */
-    gpio_set_direction(LED_PI_L, GPIO_MODE_OUTPUT);
+    gpio_set_direction(LED_PI_L|LED_PI_R, GPIO_MODE_OUTPUT);
+    // gpio_reset_pin(LED_PI_R);
+    // /* Set the GPIO as a push/pull output */
+    // gpio_set_direction(LED_PI_R, GPIO_MODE_OUTPUT);
+
     
 }
 void light_task(void)
 {
+    int led_num[2]={LED_PI_L,LED_PI_R};
     light_init();
+   
     while (1)
     {
-        gpio_set_level(LED_PI_L,0);
-        vTaskDelay(pdMS_TO_TICKS(200));
-        gpio_set_level(LED_PI_L,1);
-        vTaskDelay(pdMS_TO_TICKS(200));
+        for (int i = 0; i < 2; i++)
+        {
+        gpio_set_level(led_num[i],1);
+        vTaskDelay(pdMS_TO_TICKS(500));
+        gpio_set_level(led_num[i],0);
+        vTaskDelay(pdMS_TO_TICKS(500));
+        printf("light is %d\n",led_num[i]);
+        }
     }
     
 }
